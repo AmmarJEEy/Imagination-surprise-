@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ant Al Hayat Birthday Surprise</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Cursive', sans-serif; }
+  body { overflow: hidden; background: #ffe6f0; }
+  .screen { width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; flex-direction: column; position: absolute; top:0; left:0; }
+  .hidden { display: none; }
+  button { padding: 15px 30px; font-size: 24px; border-radius: 12px; border: none; cursor: pointer; background: #ff3399; color: white; box-shadow: 0 0 15px pink; transition: 0.3s; }
+  button:hover { transform: scale(1.1); box-shadow: 0 0 30px #ff66cc; }
+
+  .balloon, .petal { position: absolute; width: 40px; height: 40px; background: darkpink; border-radius: 50%; animation: floatUp linear infinite; }
+  @keyframes floatUp { 0% { transform: translateY(100vh) translateX(0) rotate(0deg); opacity:1;} 100% { transform: translateY(-50vh) translateX(50px) rotate(360deg); opacity:0;} }
+
+  .countdown { font-size: 100px; color: #ff3399; text-shadow: 0 0 30px #ff99cc; }
+  .message { font-size: 48px; color: #ff3399; text-align: center; padding: 0 20px; text-shadow: 0 0 20px pink; }
+
+  .card { background: #fff0f5; border-radius: 20px; padding: 40px; text-align:center; font-size: 32px; color: #ff3399; box-shadow: 0 0 50px pink; max-width: 90%; }
+  .poetry { margin-bottom: 20px; }
+  img { max-width: 80%; border-radius: 20px; box-shadow: 0 0 50px #ff99cc; margin-bottom: 20px; }
+
+  /* I LOVE YOU Heart */
+  #loveScreen { background: black; color: white; overflow: hidden; }
+  .heart { position: relative; width: 500px; height: 500px; margin: auto; }
+  .loveWord { position: absolute; font-size: 18px; font-weight: bold; color: #ff3399; animation: floatLove 10s linear infinite; }
+  @keyframes floatLove { 0% { transform: translate(0,0) rotate(0deg);} 100% { transform: translate(300px,-500px) rotate(360deg);} }
+  .centerText { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-size: 60px; color:#ff66cc; text-shadow: 0 0 50px #ff3399; }
+
+  /* Scratch message */
+  #scratchCard { width: 90%; height: 70%; background: #fff0f5; border-radius: 20px; box-shadow: 0 0 50px pink; text-align:center; font-size: 28px; padding:20px; position: relative; cursor: pointer; }
+</style>
+</head>
+<body>
+
+<!-- Start Screen -->
+<div id="startScreen" class="screen">
+  <button id="startBtn">Click to Start 🎉</button>
+</div>
+
+<!-- Countdown Screen -->
+<div id="countdownScreen" class="screen hidden">
+  <div id="countdown" class="countdown"></div>
+</div>
+
+<!-- 12 AM Birthday Screen -->
+<div id="birthdayScreen" class="screen hidden">
+  <div class="message">Finally, it's 12 AM – Your Birthday 🎉</div>
+  <button id="birthdayNextBtn">Next</button>
+</div>
+
+<!-- Wishes Screen -->
+<div id="wishesScreen" class="screen hidden">
+  <div class="message">
+    Dear Ammar, آپ کا ہر دن خوشیوں بھرا ہو۔
+  </div>
+  <button id="wishesNextBtn">Next</button>
+</div>
+
+<!-- Poetry Cards -->
+<div id="poetry1" class="screen hidden">
+  <div class="card">
+    <div class="poetry">
+      تجھے روز دیکھوں قریب سے<br>
+      میرے شوق بھی ہیں عجیب سے<br>
+      میں نے مانگا ہے بس تجھی کو اپنے رب اور اس کے حبیب سے<br>
+      میری آنکھوں میں ہے بس عاجزی میرے خواب بھی ہیں غریب سے<br>
+      میرے سب دکھوں کی دوا ہو تم ملے کیا سکوں پھر طبیب سے<br>
+      میں بہت ہی خوش ہوں جوڑ کر نصیب اپنے تیرے نصیب سے
+    </div>
+  </div>
+  <button id="poetry1Next">Next</button>
+</div>
+
+<div id="poetry2" class="screen hidden">
+  <div class="card">
+    <div class="poetry">
+      چاند کہوں تو چھپ جاؤ گے<br>
+      خواب کہوں تو ٹوٹ جاؤ گے<br>
+      گلاب کہوں تو بکھر جاؤ گے<br>
+      دوست کہوں تو چھوڑ جو گے<br>
+      چلو آ پ کا نام زندگی رکھ دوں<br>
+      موت سے پہلے تو نہیں چھوڑ پاؤ گے
+    </div>
+  </div>
+  <button id="poetry2Next">Next</button>
+</div>
+
+<!-- Father's Gift -->
+<div id="fatherGift" class="screen hidden">
+  <img src="IMG-20260126-WA0068.jpg" alt="Father Gift">
+  <div class="message">I am thankful to your father for raising you so beautifully</div>
+  <button id="fatherNext">Next</button>
+</div>
+
+<!-- Ammar's Gift -->
+<div id="ammarGift" class="screen hidden">
+  <img src="Lumii_20260111_155759958.jpg" alt="Ammar Gift">
+  <div class="message">And my moon, you are the only one ♥️</div>
+  <button id="ammarNext">Next</button>
+</div>
+
+<!-- Surprise / I LOVE YOU Heart -->
+<div id="loveScreen" class="screen hidden">
+  <div class="heart" id="heartContainer"></div>
+  <div class="centerText">Ammar</div>
+  <button id="loveNext">Next</button>
+</div>
+
+<!-- Final Scratch Card Message -->
+<div id="scratchScreen" class="screen hidden">
+  <div id="scratchCard">
+    Dear Ammar 💖✨<br><br>
+    Apka har din khushiyon bhara ho.<br>
+    Aaj ka din special hai, aur mai dua karta hoon ke  
+    aapki zindagi hamesha pyar, sehat aur khushi se bhari rahe.<br><br>
+    Har lamha yaadgar ho, har pal pyara ho.<br>
+    Aap meri zindagi ka sabse khaas hissa ho.<br>
+    Mujhe aap par hamesha fakhar hai, aur meri dua hai ke  
+    aapki zindagi ke sab sapne poore hon.<br><br>
+    Love you endlessly ♥️
+  </div>
+</div>
+
+<!-- Audio -->
+<audio id="bgMusic" src="Dil mang raha hai mohlat [slowed reverb] _ yaseer Desai song _ Hindi sad song _sadlofi _sad _shilpi(M4A_128K).m4a"></audio>
+
+<script>
+const startBtn = document.getElementById('startBtn');
+const countdownScreen = document.getElementById('countdownScreen');
+const countdownEl = document.getElementById('countdown');
+const birthdayScreen = document.getElementById('birthdayScreen');
+const birthdayNextBtn = document.getElementById('birthdayNextBtn');
+const wishesScreen = document.getElementById('wishesScreen');
+const wishesNextBtn = document.getElementById('wishesNextBtn');
+const poetry1 = document.getElementById('poetry1');
+const poetry1Next = document.getElementById('poetry1Next');
+const poetry2 = document.getElementById('poetry2');
+const poetry2Next = document.getElementById('poetry2Next');
+const fatherGift = document.getElementById('fatherGift');
+const fatherNext = document.getElementById('fatherNext');
+const ammarGift = document.getElementById('ammarGift');
+const ammarNext = document.getElementById('ammarNext');
+const loveScreen = document.getElementById('loveScreen');
+const loveNext = document.getElementById('loveNext');
+const scratchScreen = document.getElementById('scratchScreen');
+const bgMusic = document.getElementById('bgMusic');
+const heartContainer = document.getElementById('heartContainer');
+
+// Create floating balloons & petals
+function createBalloons() {
+  for(let i=0;i<50;i++){
+    const balloon = document.createElement('div');
+    balloon.classList.add('balloon');
+    balloon.style.left = Math.random()*100+'vw';
+    balloon.style.animationDuration = (5+Math.random()*10)+'s';
+    document.body.appendChild(balloon);
+  }
+}
+createBalloons();
+
+// Start Button click
+startBtn.addEventListener('click',()=>{
+  startBtn.parentElement.classList.add('hidden');
+  countdownScreen.classList.remove('hidden');
+  bgMusic.play();
+  let count = 3;
+  countdownEl.textContent = count;
+  const interval = setInterval(()=>{
+    count--;
+    if(count>0) countdownEl.textContent=count;
+    else{
+      clearInterval(interval);
+      countdownScreen.classList.add('hidden');
+      birthdayScreen.classList.remove('hidden');
+    }
+  },1000);
+});
+
+// Next button events
+birthdayNextBtn.addEventListener('click',()=>{ birthdayScreen.classList.add('hidden'); wishesScreen.classList.remove('hidden'); });
+wishesNextBtn.addEventListener('click',()=>{ wishesScreen.classList.add('hidden'); poetry1.classList.remove('hidden'); });
+poetry1Next.addEventListener('click',()=>{ poetry1.classList.add('hidden'); poetry2.classList.remove('hidden'); });
+poetry2Next.addEventListener('click',()=>{ poetry2.classList.add('hidden'); fatherGift.classList.remove('hidden'); });
+fatherNext.addEventListener('click',()=>{ fatherGift.classList.add('hidden'); ammarGift.classList.remove('hidden'); });
+ammarNext.addEventListener('click',()=>{ ammarGift.classList.add('hidden'); loveScreen.classList.remove('hidden'); createHeart(); });
+loveNext.addEventListener('click',()=>{ loveScreen.classList.add('hidden'); scratchScreen.classList.remove('hidden'); });
+
+// I LOVE YOU heart
+function createHeart(){
+  for(let i=0;i<150;i++){
+    const div = document.createElement('div');
+    div.className='loveWord';
+    div.textContent='I LOVE YOU';
+    div.style.left=Math.random()*500+'px';
+    div.style.top=Math.random()*500+'px';
+    heartContainer.appendChild(div);
+  }
+}
+</script>
+</body>
+  </html>
